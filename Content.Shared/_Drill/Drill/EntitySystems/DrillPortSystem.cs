@@ -1,7 +1,7 @@
 using Content.Shared._Drill.Drill.Components;
-using Robust.Server.GameObjects;
+using Robust.Shared.GameObjects;
 
-namespace Content.Server._Drill.Drill.EntitySystems;
+namespace Content.Shared._Drill.Drill.EntitySystems;
 
 public sealed class DrillPortSystem : EntitySystem
 {
@@ -13,5 +13,7 @@ public sealed class DrillPortSystem : EntitySystem
             return;
 
         port.IsValid = value;
+
+        Dirty(uid, port);
     }
 }

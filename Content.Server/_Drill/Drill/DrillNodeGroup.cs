@@ -8,7 +8,7 @@ using Content.Server.NodeContainer.Nodes;
 using Content.Shared.NodeContainer;
 using Content.Shared.NodeContainer.NodeGroups;
 
-using Content.Server._Drill.Drill.EntitySystems;
+using Content.Shared._Drill.Drill.EntitySystems;
 using Content.Shared._Drill.Drill.Components;
 
 namespace Content.Server._Drill.Drill;
@@ -140,39 +140,29 @@ public sealed class DrillNodeGroup : BaseNodeGroup
             // body tiles there are, which is correct in like 20% of cases at best
             // in the interest of time and conscious of my skill level i opted not to
             // copy IconSmooth logic or do anything sophisticated
+            bool adjCheck = false;
             switch (port.Adjacency) // i am going to code duplication hell
             {
                 case adjacencyType.any:
                     if (nodeNeighbors.Count() >= 1)
                     {
-                        portSystem.SetValid(nodeOwner, true, port);
-                    }
-                    else
-                    {
-                        portSystem.SetValid(nodeOwner, false, port);
+                        adjCheck = true;
                     }
                     break;
                 case adjacencyType.corner:
                     if (nodeNeighbors.Count() == 2)
                     {
-                        portSystem.SetValid(nodeOwner, true, port);
-                    }
-                    else
-                    {
-                        portSystem.SetValid(nodeOwner, false, port);
+                        adjCheck = true;
                     }
                     break;
                 case adjacencyType.edge:
                     if (nodeNeighbors.Count() >= 3)
                     {
-                        portSystem.SetValid(nodeOwner, true, port);
-                    }
-                    else
-                    {
-                        portSystem.SetValid(nodeOwner, false, port);
+                        adjCheck = true;
                     }
                     break;
             }
+            portSystem.SetValid(nodeOwner, adjCheck, port);
 
             _sawmill.Debug($"Drill port node {nodeOwner} : {port.IsValid}"); // tmp
         }

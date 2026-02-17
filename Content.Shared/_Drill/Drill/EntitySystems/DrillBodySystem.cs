@@ -1,11 +1,11 @@
 using Content.Shared._Drill.Drill.Components;
-using Robust.Server.GameObjects;
+using Robust.Shared.GameObjects;
 
-namespace Content.Server._Drill.Drill.EntitySystems;
+namespace Content.Shared._Drill.Drill.EntitySystems;
 
 public sealed class DrillBodySystem : EntitySystem
 {
-    [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
+    [Dependency] private readonly SharedAppearanceSystem _appearanceSystem = default!;
 
     public void SetCore(EntityUid uid, bool value, DrillBodyComponent? body = null)
     {
@@ -15,6 +15,9 @@ public sealed class DrillBodySystem : EntitySystem
             return;
 
         body.IsCore = value;
+
+        Dirty(uid, body);
+
         _appearanceSystem.SetData(uid, DrillBodyVisuals.Core, value);
     }
 }

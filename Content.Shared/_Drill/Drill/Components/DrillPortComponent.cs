@@ -1,4 +1,5 @@
 using Robust.Shared.Serialization;
+using Robust.Shared.GameStates;
 
 namespace Content.Shared._Drill.Drill.Components;
 
@@ -7,27 +8,27 @@ namespace Content.Shared._Drill.Drill.Components;
 /// Used for anything every port needs to do
 /// Specific input/output behavior is handled in discrete input/output components
 /// </summary>
-[RegisterComponent]
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DrillPortComponent : Component
 {
     /// <summary>
     /// Is this port in a valid position to work
     /// </summary>
-    [DataField("isValid")]
+    [DataField("isValid"), AutoNetworkedField]
     [ViewVariables(VVAccess.ReadOnly)]
     public bool IsValid = false;
 
     /// <summary>
     /// Is this port supplied with power
     /// </summary>
-    [DataField("isPowered")]
+    [DataField("isPowered"), AutoNetworkedField]
     [ViewVariables(VVAccess.ReadOnly)]
     public bool IsPowered = false;
 
     /// <summary>
     /// Is this port currently doing work
     /// </summary>
-    [DataField("isActive")]
+    [DataField("isActive"), AutoNetworkedField]
     [ViewVariables(VVAccess.ReadOnly)]
     public bool IsActive = false;
 
