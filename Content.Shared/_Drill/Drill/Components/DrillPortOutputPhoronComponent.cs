@@ -1,9 +1,11 @@
+using Robust.Shared.GameStates;
+
 namespace Content.Shared._Drill.Drill.Components;
 
 /// <summary>
 /// A Drill port outputting phoron
 /// </summary>
-[RegisterComponent]
-public sealed partial class DrillPortOutputPhoronComponent : Component
+[RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
+public sealed partial class DrillPortOutputPhoronComponent : DrillPortOutputBaseComponent
 {
 }
