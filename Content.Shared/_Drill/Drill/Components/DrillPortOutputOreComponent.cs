@@ -1,4 +1,7 @@
+using Robust.Shared.Audio;
 using Robust.Shared.GameStates;
+
+using Content.Shared.EntityTable.EntitySelectors;
 
 namespace Content.Shared._Drill.Drill.Components;
 
@@ -8,4 +11,10 @@ namespace Content.Shared._Drill.Drill.Components;
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class DrillPortOutputOreComponent : DrillPortOutputBaseComponent
 {
+    /// <summary>
+    /// Sound to play when the port performs an output
+    /// </summary>
+    [DataField("spawnTable"), AutoNetworkedField]
+    [ViewVariables(VVAccess.ReadOnly)]
+    public EntityTableSelector? SpawnTable = default!;
 }

@@ -28,7 +28,7 @@ public sealed class DrillPortSystem : EntitySystem
 
         Dirty(uid, port);
     }
-
+/*
     public void SetActive(EntityUid uid, bool value, DrillPortComponent? port = null)
     {
         if (!Resolve(uid, ref port))
@@ -40,5 +40,5 @@ public sealed class DrillPortSystem : EntitySystem
 
         Dirty(uid, port);
     }
-
+*/
 }

@@ -24,14 +24,14 @@ public sealed partial class DrillPortComponent : Component
     [DataField("isPowered"), AutoNetworkedField]
     [ViewVariables(VVAccess.ReadOnly)]
     public bool IsPowered = false;
-
+/*
     /// <summary>
     /// Is this port currently doing work
     /// </summary>
     [DataField("isActive"), AutoNetworkedField]
     [ViewVariables(VVAccess.ReadOnly)]
     public bool IsActive = false;
-
+*/
     /// <summary>
     /// The type of adjacency check to the body this port should perform 
     /// </summary>
