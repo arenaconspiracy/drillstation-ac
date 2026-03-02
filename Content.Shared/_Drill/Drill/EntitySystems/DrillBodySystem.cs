@@ -1,5 +1,6 @@
-using Content.Shared._Drill.Drill.Components;
 using Robust.Shared.GameObjects;
+
+using Content.Shared._Drill.Drill.Components;
 
 namespace Content.Shared._Drill.Drill.EntitySystems;
 
