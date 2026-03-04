@@ -14,7 +14,7 @@ public abstract partial class DrillPortOutputBaseComponent : Component
     /// The output interval
     /// </summary>
     [DataField, AutoNetworkedField]
-    [ViewVariables]
+    [ViewVariables(VVAccess.ReadWrite)]
     public TimeSpan OutputInterval = TimeSpan.FromSeconds(10);
 
     /// <summary>
@@ -28,13 +28,13 @@ public abstract partial class DrillPortOutputBaseComponent : Component
     /// Is this port currently doing work
     /// </summary>
     [DataField, AutoNetworkedField]
-    [ViewVariables]
+    [ViewVariables(VVAccess.ReadWrite)]
     public bool IsActive = false;
 
     /// <summary>
     /// Sound to play when the port performs an output
     /// </summary>
     [DataField, AutoNetworkedField]
-    [ViewVariables]
+    [ViewVariables(VVAccess.ReadWrite)]
     public SoundSpecifier? OutputSound = default!;
 }

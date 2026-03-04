@@ -1,15 +1,17 @@
-using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.GameObjects;
-using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 using Content.Shared._Drill.Drill.Components;
+using Content.Shared.EntityTable;
 
 namespace Content.Shared._Drill.Drill.EntitySystems;
 
 public sealed partial class DrillPortOutputOreSystem : EntitySystem
 {
 
+    [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly EntityTableSystem _entityTable = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
     public override void Update(float frameTime)
@@ -24,6 +26,15 @@ public sealed partial class DrillPortOutputOreSystem : EntitySystem
                 continue;
 
             port.NextOutput = curTime + port.OutputInterval;
+
+            var xform = Transform(uid);
+            var spawns = _entityTable.GetSpawns(port.SpawnTable);
+            foreach (var id in spawns)
+            {
+                PredictedSpawnAtPosition(id, xform.Coordinates);
+            }
+
+            _audio.PlayPvs(port.OutputSound, uid);
         }
     }
 

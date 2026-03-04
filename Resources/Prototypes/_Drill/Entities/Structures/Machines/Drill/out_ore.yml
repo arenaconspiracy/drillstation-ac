@@ -10,6 +10,8 @@
   - type: DrillPortOutputOre
     spawnTable: !type:NestedSelector
       tableId: RandomOreBasicTable
+    outputSound:
+      path: /Audio/Voice/Human/malescream_3.ogg
 
 - type: entity
   parent: DrillPortOutputOreBase

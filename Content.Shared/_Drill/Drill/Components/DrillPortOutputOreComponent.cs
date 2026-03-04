@@ -14,7 +14,7 @@ public sealed partial class DrillPortOutputOreComponent : DrillPortOutputBaseCom
     /// <summary>
     /// Sound to play when the port performs an output
     /// </summary>
-    [DataField("spawnTable"), AutoNetworkedField]
+    [DataField]
     [ViewVariables(VVAccess.ReadOnly)]
     public EntityTableSelector? SpawnTable = default!;
 }
