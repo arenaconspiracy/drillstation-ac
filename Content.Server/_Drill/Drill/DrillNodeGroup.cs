@@ -19,10 +19,7 @@ namespace Content.Server._Drill.Drill;
 [NodeGroup(NodeGroupID.DrillAssembly)]
 public sealed class DrillNodeGroup : BaseNodeGroup
 {
-    [Dependency] private readonly ILogManager _logManager = default!; // tmp
     [Dependency] private readonly IEntityManager _entMan = default!;
-
-    private ISawmill _sawmill = default!; // tmp
 
     /// <summary>
     /// The computer control module connected to the assembly
@@ -41,20 +38,6 @@ public sealed class DrillNodeGroup : BaseNodeGroup
     public int CoreCount => _cores.Count;
 
     /// <summary>
-    /// Gets and assigns the sawmill
-    /// </summary>
-    /// <remarks>
-    /// The excessive use of sawmill is meant to be removed once everything else is in place
-    /// </remarks>
-    public override void Initialize(Node sourceNode, IEntityManager entMan) // tmp
-    {
-        base.Initialize(sourceNode, entMan);
-        _sawmill = _logManager.GetSawmill("nodegroup"); // tmp
-
-        _sawmill.Debug("Drill Nodegroup is initialized"); // tmp
-    }
-
-    /// <summary>
     /// Iterate through all connected nodes and set flags on their components
     /// </summary>
     /// <remarks>
@@ -64,7 +47,6 @@ public sealed class DrillNodeGroup : BaseNodeGroup
     public override void LoadNodes(List<Node> groupNodes)
     {
         base.LoadNodes(groupNodes);
-        _sawmill.Debug("Drill Nodegroup is loading nodes"); // tmp
 
         EntityUid? gridEnt = null;
 
@@ -111,8 +93,6 @@ public sealed class DrillNodeGroup : BaseNodeGroup
                 bodySystem.SetCore(nodeOwner, false, body);
             }
 
-            _sawmill.Debug($"Drill body node {nodeOwner} : {body.IsCore}"); // tmp
-
         }
 
         foreach (var node in groupNodes) // loop thru looking for port
@@ -144,27 +124,17 @@ public sealed class DrillNodeGroup : BaseNodeGroup
             switch (port.Adjacency) // i am going to code duplication hell
             {
                 case adjacencyType.any:
-                    if (nodeNeighbors.Count() >= 1)
-                    {
-                        adjCheck = true;
-                    }
+                    adjCheck = (nodeNeighbors.Count() >= 1);
                     break;
                 case adjacencyType.corner:
-                    if (nodeNeighbors.Count() == 2)
-                    {
-                        adjCheck = true;
-                    }
+                    adjCheck = (nodeNeighbors.Count() == 2);
                     break;
                 case adjacencyType.edge:
-                    if (nodeNeighbors.Count() >= 3)
-                    {
-                        adjCheck = true;
-                    }
+                    adjCheck = (nodeNeighbors.Count() >= 3);
                     break;
             }
             portSystem.SetValid(nodeOwner, adjCheck, port);
 
-            _sawmill.Debug($"Drill port node {nodeOwner} : {port.IsValid}"); // tmp
         }
 
         foreach (var node in groupNodes) // loop thru looking for the computer
@@ -175,11 +145,6 @@ public sealed class DrillNodeGroup : BaseNodeGroup
 
             if (_masterController == null)
                 _masterController = nodeOwner;
-
-            _sawmill.Debug($"Drill computer node {nodeOwner}"); // tmp
         }
-
-        _sawmill.Debug($"Drill controller {_masterController}"); // tmp
-        _sawmill.Debug($"Drill cores {CoreCount}"); // tmp
     }
 }
